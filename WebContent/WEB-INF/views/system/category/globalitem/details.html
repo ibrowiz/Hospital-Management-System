@@ -1,0 +1,193 @@
+<div class="page-header">
+	<h1>
+		Global Items <small> <i
+			class="ace-icon fa fa-angle-double-right"></i> List of Global Items
+		</small>
+	</h1>
+</div>
+
+<div class="row">
+	<div class="col-xs-12">
+		<!-- Button for view -->
+		<a class="btn btn-xs btn-info" th:href="@{/system}"><i
+			class="fa fa-home"></i> System Dashboard</a> <a
+			class="btn btn-xs btn-primary" th:href="@{/system/bcategory/save}"><i
+			class="fa fa-plus-circle"></i> Add Category </a>
+	</div>
+</div>
+<div class="hr hr-18 dotted hr-double"></div>
+
+
+<div class="row">
+	<div class="col-md-12">
+		<!-- <a class="btn btn-xs btn-info" th:href="@{/system/bitem/add}"> <i
+			class="fa fa-plus"></i> Add Global-Item
+		</a> -->
+
+		<a class="btn btn-xs btn-info" href="#modal-item" data-toggle="modal">
+			<i class="glyphicon glyphicon-plus"></i> Add Global-Item
+		</a>
+		<div class="hr hr-18 dotted hr-double"></div>
+		<table class="table table-stripped table-hover table-bordered"
+			id="dTable">
+			<thead>
+				<tr>
+					<th>Name</th>
+					<th>Description</th>
+					<th>Category</th>
+					<th><i class="glyphicon glyphicon-asterisk"> Action </i></th>
+				</tr>
+			</thead>
+			<th:block th:switch="${#lists.isEmpty(items)}">
+				<tbody th:case="true">
+					<tr>
+						<td colspan="5">No record found!</td>
+					</tr>
+				</tbody>
+				<tbody th:case="false">
+					<tr th:each="item,rowStat: ${items}">
+						<td th:text="${item.itemName}">Name</td>
+						<td th:text="${item.description}">Description</td>
+						<td th:text="${item.globalCategory.categoryName}">Category</td>
+						<td><a class="btn btn-xs btn-primary tooltips"
+							title="View Item"
+							th:href="@{/system/bitem/view/{iId} (iId=${item.itemId})}"> <i
+								class="glyphicon glyphicon-eye-open"></i>
+						</a> <a class="btn btn-xs btn-warning tooltips" title="Modify Item"
+							th:href="@{/system/bitem/edit/{iId} (iId=${item.itemId})}"> <i
+								class="glyphicon glyphicon-edit"></i>
+						</a> <a class="btn btn-xs btn-danger tooltips" title="Delete Item"
+							th:href="@{/system/bitem/delete/{iId} (iId=${item.itemId})}">
+								<i class="glyphicon glyphicon-trash"></i>
+						</a></td>
+
+					</tr>
+				</tbody>
+			</th:block>
+		</table>
+	</div>
+</div>
+
+
+
+<div class="modal fade" id="modal-item">
+	<div class="modal-dialog">
+		<div class="modal-content">
+			<div class="modal-header">
+				<button type="button" class="close" data-dismiss="modal"
+					aria-hidden="true">&times;</button>
+				<h4 class="modal-title">Add Global Item</h4>
+			</div>
+
+			<div class="modal-body">
+				<div class="row">
+
+					<div class="space space-4"></div>
+
+
+
+					<form role="form" class="form-horizontal" method="POST"
+						th:action="@{/system/bitem/save}" th:object="${iForm}">
+						<legend>Global-Item Form</legend>
+
+
+
+
+
+						<div class="form-group">
+							<label for="name" class="col-sm-3 control-label no-padding-right">Category:</label>
+							<div class="col-sm-9">
+								<select type="text" class="col-xs-10 col-sm-5"
+									placeholder="Category" th:field="*{parentCatgoryId}"
+									required="required">
+									<option th:each="c: ${categories}" th:value="${c.rowId}"
+										th:text="${c.names}"></option>
+								</select> <span class="text-danger"
+									th:if="${#fields.hasErrors('parentCatgoryId')}"
+									th:errors="*{parentCatgoryId}"></span>
+							</div>
+						</div>
+
+
+
+						<div class="form-group">
+							<label for="itemName"
+								class="col-sm-3 control-label no-padding-right">Name :</label>
+							<div class="col-sm-9">
+								<input type="text" class="col-xs-10 col-sm-5"
+									placeholder="Item name" th:field="*{itemName}"
+									required="required" /> <span class="text-danger"
+									th:if="${#fields.hasErrors('itemName')}"
+									th:errors="*{itemName}"></span>
+							</div>
+						</div>
+
+						<div class="form-group">
+							<label for="description"
+								class="col-sm-3 control-label no-padding-right">Description
+								:</label>
+							<div class="col-sm-9">
+								<input type="text" class="col-xs-10 col-sm-5"
+									placeholder="Item description" th:field="*{description}"
+									required="required" /> <span class="text-danger"
+									th:if="${#fields.hasErrors('description')}"
+									th:errors="*{description}"></span>
+							</div>
+						</div>
+
+						<div class="clearfix form-actions">
+							<div class="col-md-offset-3 col-md-9">
+								<button class="btn btn-primary" type="submit"
+									onclick="return saveAlert();">
+									<i class="ace-icon fa fa-check bigger-110"></i> Add
+								</button>
+
+								<button class="btn btn-danger" type="reset">
+									<i class="ace-icon fa fa-undo bigger-110"></i> Reset
+								</button>
+							</div>
+						</div>
+					</form>
+
+
+
+
+
+
+				</div>
+			</div>
+		</div>
+	</div>
+</div>
+
+
+
+
+
+
+
+<script>
+	jQuery(function($) {
+		var oTable1 = $('#dTable').dataTable({
+			bAutoWidth : false,
+			"aoColumns" : [ {
+				"bSortable" : true
+			}, null, null, {
+				"bSortable" : false
+			} ]
+
+		//,
+		//"sScrollY": "200px",
+		//"bPaginate": false,
+
+		//"sScrollX": "100%",
+		//"sScrollXInner": "120%",
+		//"bScrollCollapse": true,
+		//Note: if you are applying horizontal scrolling (sScrollX) on a ".table-bordered"
+		//you may want to wrap the table inside a "div.dataTables_borderWrap" element
+
+		//"iDisplayLength": 50
+		});
+
+	});
+</script>

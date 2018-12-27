@@ -1,0 +1,473 @@
+<div class="page-header">
+	<h1>
+		Visits <small> <i class="ace-icon fa fa-angle-double-right"></i>
+			Configure a visit
+		</small>
+	</h1>
+</div>
+
+<div class="row">
+	<div class="col-xs-12">
+		<!-- Button for view -->
+		<a class="btn btn-xs btn-success" th:href="@{/system}"><i
+			class="fa fa-home"></i> System Dashboard</a> <a
+			class="btn btn-xs btn-primary" th:href="@{/consultations/visits}"><i
+			class="fa fa-list-alt"></i> All Visits</a>
+			<a
+			class="btn btn-xs btn-warning" data-toggle="modal"
+								href="#modal-simple1"><i
+			class="fa fa fa-usd"></i>&nbsp;&nbsp;Raise Bill</a>
+	</div>
+</div>
+<div class="hr hr-18 dotted hr-double"></div>
+
+<div class="row">
+	<div class="col-xs-12">
+		<!-- View contents here -->
+		<!-- User Profile -->
+		<div id="user-profile-2" class="user-profile">
+			<div class="tabbable">
+				<ul class="nav nav-tabs padding-18">
+					<li class="active"><a data-toggle="tab" href="#configure">
+							<i class="green ace-icon fa fa-ban bigger-120"></i> Configure
+							Visit
+					</a></li>
+					<li class="">
+					<a th:href="@{/consultations/visits/configurebill/{id} (id = ${pid})}">
+							<i class="brown ace-icon fa fa-ban bigger-120"></i> Billing Scheme
+					</a></li> 
+				</ul>
+				<div class="tab-content no-border padding-24">
+					<div id="configure" class="tab-pane in active">
+
+						<!-- /.row -->
+						<div class="row">
+							<div class="col-xs-12">
+
+								<!-- View contents here -->
+								<div class="row">
+
+									<div class="col-md-6">
+									<h3 th:inline="text">
+											Visit ID: [[${vst.id}]] <!-- <small> <a
+												th:href="@{/consultations/visits/view/{id} (id=${vst.id})}">view
+													consultation</a></small> -->
+										</h3> 
+										<h3 th:inline="text">
+											Visit Code: [[${vst.code}]] <!-- <small> <a
+												th:href="@{/consultations/visits/view/{id} (id=${vst.id})}">view
+													consultation</a></small> -->
+										</h3> 
+									 		<form role ="form" class="form-horizontal" method="post" th:object="${vForm}">
+						
+						<div class="form-group">
+				<label for="name" class="col-sm-3 control-label no-padding-right">Visit ID</label>
+				<div class="col-sm-9">
+					<input type="text" class="col-xs-10 col-sm-5" placeholder="" 
+					width = "20px" readonly = "readonly" th:field = "*{id}" /> 
+				</div>
+				</div>
+				
+				<div class="form-group">
+				<label for="name" class="col-sm-3 control-label no-padding-right">Visit Code</label>
+				<div class="col-sm-9">
+					<input type="text" class="col-xs-10 col-sm-5" placeholder="" 
+					width = "20px" readonly = "readonly" th:field = "*{code}" /> 
+				</div>
+				</div>
+				
+				</form>
+										<hr />
+										<div class="col-md-8">
+											<!-- Dform -->
+											<h3 th:inline="text">Assign Patient</h3>
+											<hr />
+											<form th:object="${assignForm}"
+												th:action="@{/consultations/visits/assign}" method="post">
+												<input type="hidden" th:field="*{visitId}" />
+												<!-- section/arm -->
+												<!-- <div class="form-group">
+													<label>Select Section | Arm</label>
+													<div class="">
+														<select class="col-xs-10 col-sm-12" id="login-section"
+															th:field="*{section}" required="true">
+															<option value="0">Select..</option>
+															<option th:each="s: ${sections}" th:value="${s.id}"
+																th:text="${s.session_name}"></option>
+														</select> <span class="text-danger"
+															th:if="${#fields.hasErrors('section')}"
+															th:errors="*{section}"></span>
+													</div>
+												</div> -->
+												<!-- department -->
+												<!-- <div class="form-group">
+													<label>Department</label>
+													<div class="">
+														<select class="col-xs-10 col-sm-12" id="department"
+															th:field="*{departmentId}" required="true">
+															<option value="0">Select Section|Arm first</option>
+														</select> <span class="text-danger"
+															th:if="${#fields.hasErrors('departmentId')}"
+															th:errors="*{departmentId}"></span>
+													</div>
+												</div> -->
+												<!-- unit -->
+												<div class="form-group">
+													<label>Unit</label>
+													<div class="">
+														<select class="col-xs-10 col-sm-12" id="unit"
+															th:field="*{unitId}" required="true">
+															<option value="0">Select Unit</option>
+															<option th:each="s: ${unit}" th:value="${s.rowId}"
+																th:text="${s.names}"></option>
+														</select> <span class="text-danger"
+															th:if="${#fields.hasErrors('unitId')}"
+															th:errors="*{unitId}"></span>
+													</div>
+												</div>
+												
+												<!-- Point -->
+												
+													<input type="hidden" class="form-control" th:field="*{point}"/>
+														<!-- <select class="col-xs-10 col-sm-12" id="workflow-point"
+															th:field="*{workflowPointId}" required="true">
+															<option value="0">Select Unit first</option>
+														</select> --> <span class="text-danger"
+															th:if="${#fields.hasErrors('point')}"
+															th:errors="*{point}"></span>
+													
+												<!-- User Input -->
+												<div class="form-group">
+													<label>Select User</label>
+													<div class="">
+														<select class="col-xs-10 col-sm-12" th:field="*{userId}"
+															id="point-users" required="true">
+															<option value="">Select select unit first</option>
+														</select> <span class="text-danger"
+															th:if="${#fields.hasErrors('userId')}"
+															th:errors="*{userId}"></span>
+													</div>
+												</div>
+												<div class="form-group">
+													<label>Comment</label>
+													<div class="">
+														<textarea class="col-xs-10 col-sm-12"
+															th:field="*{comment}"></textarea>
+														<span class="text-danger"
+															th:if="${#fields.hasErrors('comment')}"
+															th:errors="*{comment}"></span>
+													</div>
+												</div>
+												<div class="clearfix form-actions">
+													<br />
+													<button type="submit" class="btn btn-primary btn-xs">
+														<i class=""></i> Assign
+													</button>
+												</div>
+											</form>
+											<!-- /Dform -->
+										</div>
+									</div>
+									<!-- /.View contents here -->
+									<div class="col-md-5 center">
+										<!-- Holder for Patient Detail -->
+										<h4 th:inline="text">[[${vst.patient.title.acronym} + '
+											' + ${vst.patient.surname} + ' ' +
+											${vst.patient.othernames}]]</h4>
+										<small th:inline="text">[[${vst.patient.patientId}]]</small>
+
+										<div class="space space-4"></div>
+
+										  <span class="profile-picture"> <img 
+											th:if="${vst.patient.image == null}" id="avatar2" style="max-width: 100px"
+											th:src="@{/resources/img/nhis.png}" alt="Profile"
+											class="img-responsive" /> <img
+											th:if="${vst.patient.image != null}" id="avatar2" style="max-width: 100px"
+											th:src="@{/patients/image/{id}(id=${pid})}"
+											alt="Profile" class="img-responsive" />
+										</span> 
+										<!-- /.Holder for Patient Detail -->
+									</div>
+								</div>
+							</div>
+						</div>
+					</div>
+					<div class="space-20"></div>
+				</div>
+				<!-- /#home -->
+			</div>
+		</div>
+	</div>
+	<!-- Profile Ends  -->
+	<!-- End View contents here -->
+</div>
+
+<div class="modal fade" id="modal-simple1">
+	<div class="modal-dialog">
+		<div class="modal-content">
+			<!-- Form -->
+			<!-- Modal heading -->
+			<div class="modal-header">
+				<button type="button" class="close" data-dismiss="modal"
+					aria-hidden="true">&times;</button>
+				<h4 class="modal-title">Raise Bill</h4>
+			</div>
+			<!-- // Modal heading END -->
+			<!-- Modal body -->
+			<div class="modal-body">
+				<div class="row">
+					<!-- Dropzone -->
+					<div class="space space-4"></div>
+
+					<!-- Dropzone -->
+
+
+					<form role="form" class="form-horizontal" method="POST"
+						th:object="${raiseBillForm}">
+						
+						<div class="form-group">
+				<label for="name" class="col-sm-3 control-label no-padding-right">Visit ID</label>
+				<div class="col-sm-9">
+					<input type="text" class="col-xs-10 col-sm-5" placeholder="" 
+					width = "20px" readonly = "readonly" th:field = "*{visitId}" /> 
+				</div>
+				</div>
+				
+				<div class="form-group">
+				<label for="name" class="col-sm-3 control-label no-padding-right">Activity ID</label>
+				<div class="col-sm-9">
+					<input type="text" class="col-xs-10 col-sm-5" placeholder="" 
+					width = "20px" readonly = "readonly" th:field = "*{activityId}" /> 
+				</div>
+				</div>
+				
+				<div class="form-group">
+				<label for="name" class="col-sm-3 control-label no-padding-right">Bill Scheme:</label>
+				<div class="col-sm-9">
+				<select th:field="*{billSchemeId}" id="" required="true">
+				<option value="0">Select</option>
+				<option th:each="c : ${patientHmo}" 
+				th:value="${c.patientId}" th:text="${c.billName}"></option>
+				</select>
+					 <span
+						class="text-danger" th:if="${#fields.hasErrors('billSchemeId')}"
+						th:errors="*{billSchemeId}"></span>
+				</div>
+			</div>
+						
+						<div class="form-group">
+							<label for=""
+								class="col-sm-3 control-label no-padding-right">Billing Item:</label>
+							<div class="col-sm-9">
+								<select th:field="*{globalItemId}" id="globalItemId"
+									class="col-xs-10 col-sm-5">
+									<option value="0">Select</option>
+									<option th:each="c : ${globalItemList}"
+										th:value="${c.id}" th:text="${c.name}"></option>
+								</select> <span class="text-danger"
+									th:if="${#fields.hasErrors('globalItemId')}" th:errors="*{globalItemId}"></span>
+
+							</div>
+						</div>
+
+						<div class="form-group">
+				<label for="" class="col-sm-3 control-label no-padding-right">Unit of Measure:</label>
+				<div class="col-sm-9">
+					<!-- <select th:field="*{unitOfMeasureId}" id="unitOfMeasureId"
+									class="col-xs-10 col-sm-5">
+									<option value="0">Select</option>
+									<option th:each="c : ${billUnitOfMeasure}"
+										th:value="${c.unitOfMeasureId}" th:text="${c.unit}"></option>
+								</select>  -->
+								<select th:field="*{unitOfMeasureId}"
+															id="unitOfMeasureId" required="true">
+															<option value="0">Select Billing Item first</option>
+														</select> <span
+						class="text-danger" th:if="${#fields.hasErrors('unitOfMeasureId')}"
+						th:errors="*{unitOfMeasureId}"></span>
+				</div>
+			</div>
+			
+			<!-- <div class="form-group">
+				<label for="" class="col-sm-3 control-label no-padding-right">Scheme ID:</label>
+				<div class="col-sm-9">
+					<input type="text" class="col-xs-10 col-sm-5" readonly = "readonly" 
+						th:field="*{billSchemeId}"  /> <span
+						class="text-danger" th:if="${#fields.hasErrors('billSchemeId')}"
+						th:errors="*{billSchemeId}"></span>
+				</div>
+			</div> -->
+			
+			<!-- <div class="form-group">
+				<label for="" class="col-sm-3 control-label no-padding-right">Point ID:</label>
+				<div class="col-sm-9">
+					<input type="text" class="col-xs-10 col-sm-5" readonly = "readonly"
+						th:field="*{pointId}"  /> <span
+						class="text-danger" th:if="${#fields.hasErrors('pointId')}"
+						th:errors="*{pointId}"></span>
+				</div>
+			</div> -->
+			
+			<div class="form-group">
+				<label for="" class="col-sm-3 control-label no-padding-right">Price:</label>
+				<div class="col-sm-9">
+					<input type="text" class="col-xs-10 col-sm-5"
+						th:field="*{price}" id="price"  /> <span
+						class="text-danger" th:if="${#fields.hasErrors('price')}"
+						th:errors="*{price}"></span>
+				</div>
+			</div>
+			
+			<div class="form-group">
+				<label for="name" class="col-sm-3 control-label no-padding-right">Quantity:</label>
+				<div class="col-sm-9">
+					<input type="text" class="col-xs-10 col-sm-5" id=""
+						th:field="*{quantity}"  /> <span
+						class="text-danger" th:if="${#fields.hasErrors('quantity')}"
+						th:errors="*{quantity}"></span>
+				</div>
+			</div>
+			
+			<div class="form-group">
+				<label for="name" class="col-sm-3 control-label no-padding-right">Amount:</label>
+				<div class="col-sm-9">
+					<input type="text" class="col-xs-10 col-sm-5" id=""
+						th:field="*{amount}"  /> <span
+						class="text-danger" th:if="${#fields.hasErrors('amount')}"
+						th:errors="*{amount}"></span>
+				</div>
+			</div>
+			
+			<div class="form-group">
+				<label for="name" class="col-sm-3 control-label no-padding-right">Discount(%):</label>
+				<div class="col-sm-9">
+				<select th:field="*{discount}" id="" required="true">
+				<option value="10">10%</option>
+				<option value="15">15%</option>
+				<option value="20">20%</option></select>
+					 <span
+						class="text-danger" th:if="${#fields.hasErrors('discount')}"
+						th:errors="*{discount}"></span>
+				</div>
+			</div>
+
+			<div class="form-group">
+				<label for="name" class="col-sm-3 control-label no-padding-right">Total:</label>
+				<div class="col-sm-9">
+					<input type="text" class="col-xs-10 col-sm-5" id=""
+						th:field="*{total}"  /> <span
+						class="text-danger" th:if="${#fields.hasErrors('total')}"
+						th:errors="*{total}"></span>
+				</div>
+			</div>		
+
+						<div class="clearfix form-actions">
+							<div class="col-md-offset-3 col-md-9">
+								<!-- <input type="hidden" th:field="*{patientId}" /> -->
+								<button class="btn btn-primary" type="submit">
+									<i class="ace-icon fa fa-check bigger-110"></i> Add
+								</button>
+
+								<button class="btn btn-danger" type="reset">
+									<i class="ace-icon fa fa-undo bigger-110"></i> Reset
+								</button>
+							</div>
+						</div>
+					</form>
+					<!-- /.Dropzone -->
+					<!-- /.col -->
+				</div>
+			</div>
+			<!-- // Modal body END -->
+
+			<!-- Modal footer -->
+			<!-- // Modal footer END -->
+			<!-- /.Form -->
+		</div>
+	</div>
+</div>
+
+<script>
+	$('#hmo-package')
+			.change(
+					function() {
+						$.ajax({
+									url : '../../../utilities/payment/itembyscheme/'
+											+ $(this).val(),
+									beforeSend : function() {
+										$.gritter
+												.add({
+													// (string | mandatory) the heading of the notification
+													title : 'Processing!',
+													// (string | mandatory) the text inside the notification
+													text : 'Fetching items for selected scheme...'
+												});
+									},
+									success : function(msg) {
+										$.gritter.add({
+											// (string | mandatory) the heading of the notification
+											title : 'Success!',
+											// (string | mandatory) the text inside the notification
+											text : 'Items fetched...',
+											class_name : 'gritter-success'
+										});
+										$('#hmo-package-services').html(msg);
+									},
+									error : function() {
+										$.gritter
+												.add({
+													title : 'Error!',
+													text : 'Cannot fetch billing scheme. Try again or contact admin',
+													class_name : 'gritter-error'
+												});
+									}
+								});
+					});
+
+	
+	
+ 	$('#unit').change(function() {
+		$.ajax({
+			url : '/HMS/consultations/visits/request/user/' + $(this).val(),
+			beforeSend : function() {
+			},
+			success : function(msg) {
+				$("#point-users").html(msg);
+				alert(msg);
+			},
+			error : function() {
+			}
+		});//ajax
+	});
+ 	
+ 	$('#globalItemId').change(function() {
+		$.ajax({
+			url : '/HMS/admin/billScheme/request/unitOfMeasure/' + $(this).val(),
+			beforeSend : function() {
+			},
+			success : function(msg) {
+				$("#unitOfMeasureId").html(msg);
+				alert(msg);
+			},
+			error : function() {
+			}
+		});//ajax
+	});
+ 	
+ 	$('#unitOfMeasureId').change(function() {
+ 		alert($(this).val());
+ 		alert($("#globalItemId").val());
+		$.ajax({
+			url : '/HMS/admin/billScheme/request/price/' + $(this).val()+ '/' + $("#globalItemId").val() + '/' + 1,
+			beforeSend : function() {
+			},
+			success : function(msg) {
+				$("#price").val(msg);
+				alert(msg);
+			},
+			error : function() {
+			}
+		});//ajax
+	});
+ 	
+</script>

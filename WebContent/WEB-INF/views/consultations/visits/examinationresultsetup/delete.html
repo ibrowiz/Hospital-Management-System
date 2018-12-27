@@ -1,0 +1,21 @@
+
+<div class="page-header">
+	<h1>Delete Examination</h1>
+</div>
+<div class="row">
+	<div class="col-xs-12">
+		<p>
+			You are about to delete Examination Result Setup: <strong th:text="${examinationResultSetup.examResultName}">name</strong>.
+			Are you sure?
+		</p>
+
+		<form role="form" method="POST" th:object="${examinationResultSetupForm}">
+			<input type="hidden" th:field="*{globalExamResultSetupId}" />
+			<input type="hidden" th:field="*{examId}" />
+			<button class="btn btn-danger" type="submit">
+				<i class="ace-icon fa fa-check bigger-110"></i> Yes
+			</button>
+			<a class="btn btn-primary" th:href="@{/examination/detail/{id}(id=${examinationResultSetup.exam.examId})}">No</a>
+		</form>
+	</div>
+</div>

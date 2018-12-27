@@ -1,0 +1,368 @@
+<div class="page-header">
+	<h1>
+		Global-Item Category <small> <i
+			class="ace-icon fa fa-angle-double-right"></i> 
+			<span th:text="${item.itemName} " ></span> 
+			</small>
+	</h1>
+</div>
+
+<div class="row">
+	<div class="col-xs-12">
+		<!-- Button for view -->
+		<a class="btn btn-xs btn-info" th:href="@{/system}"><i
+			class="fa fa-home"></i> System Dashboard </a> <a
+			class="btn btn-xs btn-primary" th:href="@{/system/bitem/index}"><i
+			class="fa fa-list"></i> All Global Items </a> <a
+			class="btn btn-xs btn-warning"
+			th:href="@{/system/bitem/edit/{id} (id=${item.itemId})}"><i
+			class="fa fa-edit"></i> Edit Item </a> <a class="btn btn-xs btn-danger"
+			th:href="@{/system/bitem/delete/{id} (id=${item.itemId})}"><i
+			class="fa fa-trash-o"></i> Delete Item </a>
+	</div>
+</div>
+<div class="hr hr-18 dotted hr-double"></div>
+
+<div class="row">
+	<div class="col-xs-12">
+		<!-- View contents here -->
+		<div class="tabbable">
+
+			<ul class="nav nav-tabs padding-18">
+				<li class="active"><a data-toggle="tab" href="#home"> <i
+						class="green ace-icon fa fa-pencil-square-o bigger-120"></i>
+						Details
+				</a></li>
+				<li class=""><a data-toggle="tab" href="#unit"> <i
+						class="brown ace-icon fa fa-user bigger-120"></i> Unit of Measurement
+				</a></li>
+				<li class=""><a data-toggle="tab" href="#point"> <i
+						class="brown ace-icon fa fa-user bigger-120"></i> Module
+				</a></li>
+			</ul>
+			<div class="tab-content no-border padding-24">
+
+				<div id="home" class="tab-pane active">
+					<div class="row">
+						<div class="col-sm-6 col-xs-12">
+							<h4 class="header blue">Detail Information</h4>
+							<dl class="dl-horizontal">
+								<dt style="text-align: justify;">Name :</dt>
+								<dd th:text="${ item.itemName }">Name</dd>
+								<dt style="text-align: justify;">Description :</dt>
+								<dd th:text="${ item.description }">Description(s)</dd>
+
+								<dt style="text-align: justify;">Create Date</dt>
+								<dd th:text="${ #dates.format(item.createDate, 'MMM dd yyyy HH:mm')}">Create Date</dd>
+								<dt style="text-align: justify;">Created By</dt>
+								<dd th:text="${ item.createdBy }">Created By</dd>
+
+								<dt style="text-align: justify;">Modify Date</dt>
+								<dd th:text="${item.modifyDate} ? ${ #dates.format(item.modifyDate, 'MMM dd yyyy HH:mm')} : 'Not Modified yet'">Modify Date</dd>
+								<dt style="text-align: justify;">Modified By</dt>
+								<dd th:text="${item.modifiedBy} ? ${ item.modifiedBy } : 'Not Modified yet'">Modified By</dd>
+							</dl>
+						</div>
+					</div>
+				</div>
+				
+				<!-- unit -->
+				<div id="unit" class="tab-pane">
+					<div class="row">
+						<div class="col-md-12">
+							<a class="btn btn-xs btn-info"
+								href="#modal-unit" data-toggle="modal">
+								<i class="glyphicon glyphicon-plus"></i> Assign Unit
+							</a>
+							<div class="hr hr-18 dotted hr-double"></div>
+							<table class="table table-stripped table-hover table-bordered">
+								<thead>
+									<tr>
+										<th>Measurement</th>
+										<th>Abbreviation(s) of Unit</th>
+										<th><i class="glyphicon glyphicon-asterisk"> Action </i></th>
+									</tr>
+								</thead>
+								<th:block th:switch="${#lists.isEmpty(item.measurement)}">
+									<tbody th:case="true">
+										<tr>
+											<td colspan="3">No record found!</td>
+										</tr>
+									</tbody>
+									<tbody th:case="false">
+										<tr th:each="u,rowStat: ${item.measurement}">
+											<td th:text="${u.unit_of_measure}">Measurement</td>
+											<td th:text="${u.unit}">Abbreviation(s) of Unit</td>
+											<td>
+												<button class="btn btn-xs btn-success" id="unassignedUnit" title="Un Assign Unit"
+													th:value="${u.id}">
+													<i class="glyphicon glyphicon-resize-full"></i> Un-Assign Unit
+												</button>
+											</td>
+										</tr>
+									</tbody>
+								</th:block>
+							</table>
+						</div>
+					</div>
+				</div>
+				<!-- //.unit -->
+				
+				<!-- point -->
+				<div id="point" class="tab-pane">
+					<div class="row">
+						<div class="col-md-12">
+							<a class="btn btn-xs btn-info"
+								href="#modal-point" data-toggle="modal">
+								<i class="glyphicon glyphicon-plus"></i> Assign Module
+							</a>
+							<div class="hr hr-18 dotted hr-double"></div>
+							<table class="table table-stripped table-hover table-bordered">
+								<thead>
+									<tr>
+										<th>Name</th>
+										<th>Section</th>
+										<th><i class="glyphicon glyphicon-asterisk"> Action </i></th>
+									</tr>
+								</thead>
+								<th:block th:switch="${#lists.isEmpty(item.globalItemPoint)}">
+									<tbody th:case="true">
+										<tr>
+											<td colspan="5">No record found!</td>
+										</tr>
+									</tbody>
+									<tbody th:case="false">
+										<tr th:each="p,rowStat: ${item.globalItemPoint}">
+											<td th:text="${p.name}">Name</td>
+											<td th:text="${p.loginSection.session_name}">Section</td>
+											<td>
+												<a class="btn btn-xs btn-success" title="Un Assign Module"
+													th:value="${p.id}">
+													<i class="glyphicon glyphicon-resize-full"></i> Un-Assign Module
+												</a>
+											</td>
+										</tr>
+									</tbody>
+								</th:block>
+							</table>
+						</div>
+					</div>
+				</div>
+				<!-- //.point -->
+			</div>
+		</div>
+	</div>
+	<!-- assign unit to item -->
+		<div class="modal fade" id="modal-unit">
+		<div class="modal-dialog">
+			<div class="modal-content">
+				<div class="modal-header">
+					<button type="button" class="close" data-dismiss="modal"
+						aria-hidden="true">&times;</button>
+					<h4 class="modal-title">Assign Unit of Measurement.</h4>
+				</div>
+
+				<div class="modal-body">
+					<div class="row">
+
+						<div class="space space-4"></div>
+						<!-- If Patient Have Bill option -->
+						<!-- <th:block th:if="${not #lists.isEmpty(item.measurement)}"> -->
+							<form th:object="${aForm}" th:action="@{/consultations/visits/configurebill}" method="POST">
+								<div class="modal-body">
+								<!-- Section -->
+								<div class="row">
+								<div class="form-group">
+									<label for="Section" class="col-sm-3 control-label no-padding-right">Measurement :</label>
+										<div class="col-sm-9">
+											<select th:field="*{unitId}" id="unitId" class="col-xs-10 col-sm-8">
+												<option value="0">Select unit</option>
+												<option th:each="u: ${unit}" th:value="${u.id}"
+													th:text="${u.unit_of_measure}"></option>
+											</select> <span class="text-danger"
+												th:if="${#fields.hasErrors('unitId')}"
+											th:errors="*{unitId}"></span>
+										</div>
+								</div>
+								</div>
+								<!-- ./section -->
+								<div class="space-6"></div>
+								<!-- Billing -->
+								<div class="row">
+								<div class="form-group">
+									<label for="item" class="col-sm-3 control-label no-padding-right">Selected Item :</label>
+										<div class="col-sm-9">
+												<input type="text" class="col-xs-10 col-sm-8" th:value="${ item.itemName }" 
+														th:id="itemName" name="item" placeholder="" readonly="readonly"/>
+													<span class="text-danger" th:if="${#fields.hasErrors('item')}"
+														th:errors="*{item}"></span>
+										</div>
+								</div>
+								</div>
+								<!-- ./billing -->
+								
+								<div class="space-6"></div>
+								<input type="hidden" id="itemId" name="rad" th:value="${item.itemId}" />
+								</div><!-- ./body -->
+								<div class="modal-footer">
+										<button class="btn btn-primary" type="submit" onclick="return assignedMeasurement()" >
+											<i class="ace-icon fa fa-check bigger-110"></i> Assign
+										</button>
+
+										<button class="btn btn-danger" type="button" data-dismiss="modal">
+											<i class="ace-icon fa fa-undo bigger-110"></i> Close
+										</button>
+								</div> 
+								
+								
+								
+							</form>
+						<!-- </th:block> -->
+						<!-- .//If Patient Have Bill option -->
+						<!-- If no measurement is created in database -->
+						<!-- <th:block th:if="${#lists.isEmpty(item)}">
+							<div class="alert alert-danger">There is no existing unit of measurement</div>
+							<a th:href="@{/customers/patients/payment/{id} (id=${visit.patient.id})}"
+								class="btn btn-danger btn-lg" target="_blank"> Add Unit of measurement
+								Options</a>
+						</th:block> -->
+						<!-- .//If Patient don't Have Bill option -->
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+	<!-- /.assign unit to item -->
+	<!-- assign point to item -->
+		<div class="modal fade" id="modal-point">
+		<div class="modal-dialog">
+			<div class="modal-content">
+				<div class="modal-header">
+					<button type="button" class="close" data-dismiss="modal"
+						aria-hidden="true">&times;</button>
+					<h4 class="modal-title">Assign Flow Module.</h4>
+				</div>
+
+				<div class="modal-body">
+					<div class="row">
+
+						<div class="space space-4"></div>
+						<!-- If Patient Have Bill option -->
+						<!-- <th:block th:if="${not #lists.isEmpty(item.measurement)}"> -->
+							<form th:object="${aForm}" th:action="@{/consultations/visits/configurebill}" method="POST">
+								<div class="modal-body">
+								<!-- Section -->
+								<div class="row">
+								<div class="form-group">
+									<label for="Section" class="col-sm-3 control-label no-padding-right">Module :</label>
+										<div class="col-sm-9">
+											<select th:field="*{pointId}" id="pointId" class="col-xs-10 col-sm-8">
+												<option value="0">Select unit</option>
+												<option th:each="p: ${point}" th:value="${p.id}"
+													th:text="${p.name}"></option>
+											</select> <span class="text-danger"
+												th:if="${#fields.hasErrors('pointId')}"
+											th:errors="*{pointId}"></span>
+										</div>
+								</div>
+								</div>
+								<!-- ./section -->
+								<div class="space-6"></div>
+								<!-- Billing -->
+								<div class="row">
+								<div class="form-group">
+									<label for="item" class="col-sm-3 control-label no-padding-right">Selected Item :</label>
+										<div class="col-sm-9">
+												<input type="text" class="col-xs-10 col-sm-8" th:value="${ item.itemName }" 
+														th:id="itemName" name="item" placeholder="" readonly="readonly"/>
+													<span class="text-danger" th:if="${#fields.hasErrors('item')}"
+														th:errors="*{item}"></span>
+										</div>
+								</div>
+								</div>
+								<!-- ./billing -->
+								
+								<div class="space-6"></div>
+								<input type="hidden" id="itemId" name="rad" th:value="${item.itemId}" />
+								</div><!-- ./body -->
+								<div class="modal-footer">
+										<button class="btn btn-primary" type="button" id="assignPoint" >
+											<i class="ace-icon fa fa-check bigger-110"></i> Assign
+										</button>
+
+										<button class="btn btn-danger" type="button" data-dismiss="modal">
+											<i class="ace-icon fa fa-undo bigger-110"></i> Close
+										</button>
+								</div> 
+								
+								
+								
+							</form>
+						<!-- </th:block> -->
+						<!-- .//If Patient Have Bill option -->
+						<!-- If no measurement is created in database -->
+						<!-- <th:block th:if="${#lists.isEmpty(item)}">
+							<div class="alert alert-danger">There is no existing unit of measurement</div>
+							<a th:href="@{/customers/patients/payment/{id} (id=${visit.patient.id})}"
+								class="btn btn-danger btn-lg" target="_blank"> Add Unit of measurement
+								Options</a>
+						</th:block> -->
+						<!-- .//If Patient don't Have Bill option -->
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+	<!-- /.assign point to item -->
+</div>
+<!-- assign measurement -->
+<script>
+	function assignedMeasurement(){
+			
+		var confirmAction = confirm('Are you sure you want to proceed  ?.');
+	    alert(confirmAction);
+	    if(confirmAction == true){
+	    	$.ajax({
+				url : '/../../EMR/utilities/itemandunit/assignment/' + $('#unitId').val()+'/'+$('#itemId').val(),
+				beforeSend : function() {},
+				success : function(msg) {
+					if(msg == null ){
+						alert('There is an error! contact the System Admin. ');
+					}else{
+						alert(msg);
+					} 
+				}//success
+			});
+	    	event.preventDefault();
+	    	return false;
+	    }else{
+	    	return false;
+	    }
+	}
+</script>
+<!-- assign measurement -->
+<!-- unassigned measurement -->
+<script type="text/javascript">
+    $('#assignPoint').click(function() {
+    	var confirmAction = confirm('Are you sure you want to proceed  ?.');
+	    alert(confirmAction);
+	    if(confirmAction == true){
+	    	$.ajax({
+				url : '/../../EMR/utilities/itemandpoint/assignment/' + $('#pointId').val()+'/'+$('#itemId').val(),
+				beforeSend : function() {},
+				success : function(msg) {
+					if(msg == null ){
+						alert('There is an error! contact the System Admin. ');
+						 $('#modal-point').modal('hide');
+					}else{
+						alert(msg);
+						 $('#modal-point').modal('hide');
+					} 
+				}//success
+			});
+	    }else{
+	    	return false;
+	    }
+    });
+</script>
+<!-- /.unassigned measurement -->

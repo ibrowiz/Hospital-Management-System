@@ -1,0 +1,210 @@
+<div class="page-header">
+	<h1>
+		Create <small> <i class="ace-icon fa fa-angle-double-right"></i>
+			Create Staff
+		</small>
+	</h1>
+</div>
+
+<div class="row">
+	<div class="col-xs-12">
+		<!-- Button for view -->
+		<a class="btn btn-xs btn-info" th:href="@{/system}"><i
+			class="fa fa-home"></i> System Dashboard</a> <a
+			class="btn btn-xs btn-primary" th:href="@{/staffreg/list}"><i
+			class="glyphicon glyphicon-list"></i> All Staff</a>
+	</div>
+</div>
+<div class="hr hr-18 dotted hr-double"></div>
+
+<div class="row">
+	<div class="col-xs-12">
+		<!-- View contents here -->
+
+		<form role="form" class="form-horizontal" method="POST"
+			th:object="${staffRegForm}">
+			<legend class="scheduler-border">Staff Registration Form</legend>
+			
+			<div class="form-group">
+				<label for="lastName"
+					class="col-sm-3 control-label no-padding-right">First Name:</label>
+				<div class="col-sm-9">
+
+					<input type="text" class="col-xs-10 col-sm-5"
+						placeholder="First Name" th:field="*{firstName}"
+						required="required" /> <span class="text-danger"
+						th:if="${#fields.hasErrors('firstName')}"
+						th:errors="*{firstName}"></span>
+				</div>
+			</div>
+			
+			<div class="form-group">
+				<label for="lastName"
+					class="col-sm-3 control-label no-padding-right">Last Name:</label>
+				<div class="col-sm-9">
+					<input type="text" class="col-xs-10 col-sm-5"
+						placeholder="Last Name" th:field="*{lastName}" required="required" />
+					<span class="text-danger" th:if="${#fields.hasErrors('lastName')}"
+						th:errors="*{lastName}"></span>
+				</div>
+			</div>
+			
+			
+			<div class="form-group">
+							<label class="control-label col-xs-12 col-sm-3 no-padding-right"
+								for="birthdate">Date of Birth:</label>
+
+							<div class="col-xs-12 col-sm-9">
+								<div class="clearfix">
+
+									<input type="text" class="col-xs-12 col-sm-3 date-picker"
+										id="date-picker" th:field="*{dob}"
+										data-date-format="yyyy-mm-dd" /> <span class="text-danger"
+										th:if="${#fields.hasErrors('dob')}" th:errors="dob"></span>
+
+								</div>
+							</div>
+				</div>
+
+			
+			
+			<div class="form-group">
+				<label for="lastName"
+					class="col-sm-3 control-label no-padding-right">Email:</label>
+				<div class="col-sm-9">
+					<input type="email" class="col-xs-10 col-sm-5"
+						placeholder="User Email" th:field="*{email}" required="required" />
+					<span class="text-danger" th:if="${#fields.hasErrors('email')}"
+						th:errors="*{email}"></span>
+				</div>
+			</div>
+			
+			<div class="form-group">
+				<label for="Address"
+					class="col-sm-3 control-label no-padding-right">Address</label>
+				<div class="col-sm-9">
+					<textarea class="col-xs-10 col-sm-5"
+						placeholder="" th:field="*{address}"></textarea>
+					<span class="text-danger"
+						th:if="${#fields.hasErrors('address')}"
+						th:errors="*{address}"></span>
+				</div>
+			</div>
+			
+			
+			<div class="form-group">
+				<label for="qualifications"
+					class="col-sm-3 control-label no-padding-right">Qualifications:</label>
+				<div class="col-sm-9">
+					<textarea class="col-xs-10 col-sm-5"
+						placeholder="" th:field="*{qualifications}"></textarea>
+					<span class="text-danger"
+						th:if="${#fields.hasErrors('qualifications')}"
+						th:errors="*{qualifications}"></span>
+				</div>
+			</div>
+
+			<div class="form-group">
+				<label for="unit"
+					class="col-sm-3 control-label no-padding-right">Unit:</label>
+				<div class="col-sm-9">
+					<select th:field="*{unit}" class="col-xs-10 col-sm-5">
+						<option value="0">Select</option>
+						<option th:each="unit : ${unit}" th:value="${unit.rowId}"
+							th:text="${unit.names}"></option>
+					</select> <span class="text-danger"
+						th:if="${#fields.hasErrors('unit')}" th:errors="*{unit}"></span>
+				</div>
+			</div>
+
+			<!-- <div class="form-group">
+				<label for="title" class="col-sm-3 control-label no-padding-right">Title:</label>
+				<div class="col-sm-9">
+					<select th:field="*{titleId}" class="col-xs-10 col-sm-5">
+						<option value="0">Select</option>
+						<option th:each="title : ${titles}" th:value="${title.id}"
+							th:text="${title.acronym}"></option>
+					</select> <span class="text-danger" th:if="${#fields.hasErrors('titleId')}"
+						th:errors="*{titleId}"></span>
+				</div>
+			</div>
+
+			<div class="form-group">
+				<label for="lastName"
+					class="col-sm-3 control-label no-padding-right">Last Name:</label>
+				<div class="col-sm-9">
+					<input type="text" class="col-xs-10 col-sm-5"
+						placeholder="Last Name" th:field="*{lastName}" required="required" />
+					<span class="text-danger" th:if="${#fields.hasErrors('lastName')}"
+						th:errors="*{lastName}"></span>
+				</div>
+			</div>
+
+			<div class="form-group">
+				<label for="lastName"
+					class="col-sm-3 control-label no-padding-right">Othernames:</label>
+				<div class="col-sm-9">
+
+					<input type="text" class="col-xs-10 col-sm-5"
+						placeholder="Other Names" th:field="*{otherNames}"
+						required="required" /> <span class="text-danger"
+						th:if="${#fields.hasErrors('otherNames')}"
+						th:errors="*{otherNames}"></span>
+				</div>
+			</div>
+ -->			
+			<!-- <div class="form-group">
+				<label for="name" class="col-sm-3 control-label no-padding-right">Unit:</label>
+				<div class="col-sm-9">
+					<select type="text" class="col-xs-10 col-sm-5"
+						placeholder="Unit Name" th:field="*{unitId}">
+						<option value="">Select..</option>
+						<option th:each="u: ${unit}" th:value="${u.rowId}" th:text="${u.names}"></option>
+					</select> <span class="text-danger"
+						th:if="${#fields.hasErrors('unitId')}"
+						th:errors="*{unitId}"></span>
+				</div>
+			</div>  -->
+
+			<div class="clearfix form-actions">
+				<div class="col-md-offset-3 col-md-9">
+					<!-- <input class="btn btn-primary" type="submit" value="Create User" onclick="return saveAlert();" /> -->
+					<input class="btn btn-primary" type="submit" value="Create"/>
+					<button class="btn btn-danger" type="reset" >
+						<i class="ace-icon fa fa-undo bigger-110"></i> Reset
+					</button>
+				</div>
+			</div>
+		</form>
+	</div>
+</div>
+<!-- <script>
+	function saveAlert() {
+	    var confirmAction = confirm('Are you sure you want to save your last action?.');
+	    alert(confirmAction);
+	    if(confirmAction == true){
+	    	return true;
+	    }else{
+	    	return false;
+	    }
+	}
+</script>
+<script>
+	$(function() { 
+		$('#userRole').change(function(event) {
+			var email = $('#email').val();
+			$.ajax({
+				type : "GET",
+				url : '../../../utilities/verifydomain/userForm/' + email +'/',
+				beforeSend : function() {},
+				success : function(html) {
+					if(msg === false){//
+						alert('Mail not accepted.');
+						$("#email").val("");
+					}
+				},
+				error : function() {}
+			});
+		});
+	});
+</script> -->

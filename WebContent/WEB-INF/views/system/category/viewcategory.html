@@ -1,0 +1,123 @@
+<div class="page-header">
+	<h1>
+		Global-Item Category <small> <i
+			class="ace-icon fa fa-angle-double-right"></i> 
+			<span th:text="${gCategory.categoryName} " ></span> 
+			</small>
+	</h1>
+</div>
+
+<div class="row">
+	<div class="col-xs-12">
+		<!-- Button for view -->
+		<a class="btn btn-xs btn-info" th:href="@{/system}"><i
+			class="fa fa-home"></i> System Dashboard</a> <a
+			class="btn btn-xs btn-primary" th:href="@{/system/bcategory}"><i
+			class="glyphicon glyphicon-list"></i> All Global-Item Category</a> <a
+			class="btn btn-xs btn-primary" th:href="@{/system/bcategory/save}"><i
+			class="fa fa-plus-circle"></i> Add Global-Item Category</a> <a
+			class="btn btn-xs btn-warning"
+			th:href="@{/system/bcategory/edit/{id} (id = ${gCategory.categoryId})}"> <i
+			class="fa fa-edit"></i> Edit Global-Item Category
+		</a>
+	</div>
+</div>
+<div class="hr hr-18 dotted hr-double"></div>
+
+<div class="row">
+	<div class="col-xs-12">
+		<!-- View contents here -->
+		<div class="tabbable">
+
+			<ul class="nav nav-tabs padding-18">
+				<li class="active"><a data-toggle="tab" href="#home"> <i
+						class="green ace-icon fa fa-pencil-square-o bigger-120"></i>
+						Details
+				</a></li>
+				<!-- <li class=""><a data-toggle="tab" href="#item"> <i
+						class="brown ace-icon fa fa-user bigger-120"></i> Global-Item
+				</a></li> -->
+			</ul>
+			<div class="tab-content no-border padding-24">
+
+				<div id="home" class="tab-pane active">
+					<div class="row">
+						<div class="col-sm-6 col-xs-12">
+							<h4 class="header blue">Detail Information</h4>
+							<dl class="dl-horizontal">
+								<dt style="text-align: justify;">Name :</dt>
+								<dd th:text="${ gCategory.categoryName }">Global-Item Category Name</dd>
+								<dt style="text-align: justify;">Description :</dt>
+								<dd th:text="${ gCategory.description }">Global-Item Category Description</dd>
+								<dt style="text-align: justify;">Global-Item Type :</dt>
+							<!-- 	<dd th:text="${ gCategory.itemTypeId.name }">Global-Item Type</dd> -->
+
+
+								<dt style="text-align: justify;">Create Date</dt>
+								<dd th:text="${ #dates.format(gCategory.createDate, 'MMM dd yyyy HH:mm')}">Create Date</dd>
+								<dt style="text-align: justify;">Created By</dt>
+								<dd th:text="${ gCategory.createdBy }">Created By</dd>
+
+								<dt style="text-align: justify;">Modify Date</dt>
+								<dd th:text="${gCategory.modifyDate} ? ${ #dates.format(gCategory.modifyDate, 'MMM dd yyyy HH:mm')} : 'Not Modified yet'">Modify Date</dd>
+								<dt style="text-align: justify;">Modified By</dt>
+								<dd th:text="${gCategory.modifiedBy} ? ${ gCategory.modifiedBy } : 'Not Modified yet'">Modified By</dd>
+							</dl>
+						</div>
+					</div>
+				</div>
+				
+				<!-- item -->
+				<div id="item" class="tab-pane">
+				 <div class="row">
+						<div class="col-md-12">
+							<a class="btn btn-xs btn-info"
+								th:href="@{/system/bcategory/{cId}/globalitem/add (cId=${gCategory.categoryId})}">
+								<i class="fa fa-plus"></i> Add Global-Item
+							</a>
+							<div class="hr hr-18 dotted hr-double"></div>
+							<table class="table table-stripped table-hover table-bordered">
+								<thead>
+									<tr>
+										<th>Name</th>
+										<th>Description</th>
+										<th>Category</th>
+										<th><i class="glyphicon glyphicon-asterisk"> Action </i></th>
+									</tr>
+								</thead>
+								<th:block th:switch="${#lists.isEmpty(gCategory.globalItem)}">
+									<tbody th:case="true">
+										<tr>
+											<td colspan="5">No record found!</td>
+										</tr>
+									</tbody>
+									<tbody th:case="false">
+										<tr th:each="item,rowStat: ${gCategory.globalItem}">
+											<td th:text="${item.itemName}">Name</td>
+											<td th:text="${item.description}">Description</td>
+											<td th:text="${gCategory.categoryName}">Category</td>
+											<td><a class="btn btn-xs btn-primary tooltips"
+												title="View Categories"
+												th:href="@{/system/bcategory/{cId}/globalitem/view/{iId} (cId=${gCategory.categoryId}, iId=${item.itemId})}">
+													<i class="glyphicon glyphicon-eye-open"></i>
+											</a> <a class="btn btn-xs btn-warning tooltips"
+												title="Modify Categories"
+												th:href="@{/system/bcategory/{cId}/globalitem/edit/{iId} (cId=${gCategory.categoryId}, iId=${item.itemId})}">
+													<i class="glyphicon glyphicon-edit"></i>
+											</a> <a class="btn btn-xs btn-danger tooltips"
+												title="Delete Categories"
+												th:href="@{/system/bcategory/{cId}/globalitem/delete/{iId} (cId=${gCategory.categoryId}, iId=${item.itemId})}">
+													<i class="glyphicon glyphicon-trash"></i>
+											</a></td>
+										</tr>
+									</tbody>
+								</th:block>
+							</table>
+						</div>
+					</div> 
+				</div>
+				<!-- //.item -->
+			</div>
+		</div>
+	</div>
+</div>

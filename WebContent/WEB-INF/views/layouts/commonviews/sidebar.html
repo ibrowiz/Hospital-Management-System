@@ -1,0 +1,764 @@
+
+<!-- Sidebar Menu -->
+<div xmlns:th="http://www.thymeleaf.org" th:fragment="sidebar"
+	id="sidebar" class="sidebar responsive">
+	<script type="text/javascript">
+		try {
+			ace.settings.check('sidebar', 'fixed')
+		} catch (e) {
+		}
+	</script>
+
+	<div class="sidebar-shortcuts" id="sidebar-shortcuts">
+		<div class="sidebar-shortcuts-large" id="sidebar-shortcuts-large">
+			<button class="btn btn-success">
+				<i class="ace-icon fa fa-signal"></i>
+			</button>
+
+			<button class="btn btn-info">
+				<i class="ace-icon fa fa-pencil"></i>
+			</button>
+
+			<!-- #section:basics/sidebar.layout.shortcuts -->
+			<button class="btn btn-warning">
+				<i class="ace-icon fa fa-users"></i>
+			</button>
+
+			<button class="btn btn-danger">
+				<i class="ace-icon fa fa-cogs"></i>
+			</button>
+
+			<!-- /section:basics/sidebar.layout.shortcuts -->
+		</div>
+
+		<div class="sidebar-shortcuts-mini" id="sidebar-shortcuts-mini">
+			<span class="btn btn-success"></span> <span class="btn btn-info"></span>
+
+			<span class="btn btn-warning"></span> <span class="btn btn-danger"></span>
+		</div>
+	</div>
+	<!-- /.sidebar-shortcuts -->
+	<ul class="nav nav-list">
+		<li class=""><a th:href="@{/}"> <i
+				class="menu-icon fa fa-tachometer"></i> <span class="menu-text">Dashboard
+			</span>
+		</a> <b class="arrow"></b></li>
+		<!-- Clocking -->
+<!-- 		<th:block th:if="${@userIdentity.renderLink(41)}">
+		<li class=""><a th:href="@{/user/clocking/user}"> <i
+				class="menu-icon fa fa-male"></i> <span class="menu-text">Clocking</span>
+		</a> <b class="arrow"></b></li>
+		</th:block> -->
+		
+		<!-- Front Desk -->
+		<th:block th:if="${@userIdentity.renderLink(1)}">
+			<!-- Start Module -->
+			<li class="">
+                            <a href="#" class="dropdown-toggle"> <i
+					class="menu-icon fa fa-file-o"></i> <span class="menu-text">
+						Front Desk </span> <b class="arrow fa fa-angle-down"></b>
+                            </a>
+				<ul class="submenu">
+					<!-- Patient -->
+					<li class=""><a href="#" class="dropdown-toggle"> <i
+							class="menu-icon fa fa-caret-right"></i> Patient <b
+							class="arrow fa fa-angle-down"></b>
+					</a> <b class="arrow"></b>
+						<ul class="submenu">
+							<!-- Sub Menu -->
+								<li class=""><a th:href="@{/patients/add}"
+									th:if="${@userIdentity.renderLink(2)}"> <i
+										class="menu-icon fa fa-caret-right"></i> New Patient
+								</a></li>
+								<li class=""><a th:href="@{/patients}"
+									th:if="${@userIdentity.renderLink(3)}"> <i
+										class="menu-icon fa fa-caret-right"></i> Manage Patient
+								</a></li>
+							<!-- Sub Menu -->
+						</ul></li>
+					<!-- .//Patient -->
+					
+				</ul></li>
+			<!-- End Module -->
+		</th:block>
+		<!-- .//Front Desk -->
+		
+		<!-- Vital Module -->
+		<th:block th:if="${@userIdentity.renderLink(30)}">
+			<!-- Start Module -->
+			<li class="">
+                            <a href="#" class="dropdown-toggle"> <i
+					class="menu-icon fa fa-user-md"></i> <span class="menu-text">
+						Vital Test </span> <b class="arrow fa fa-angle-down"></b>
+                            </a>
+				<ul class="submenu">
+					<!-- Start of Patient -->
+					<li class=""><a href="#" class="dropdown-toggle"> <i
+							class="menu-icon fa fa-caret-right"></i> Attend <b
+							class="arrow fa fa-angle-down"></b>
+					</a> <b class="arrow"></b>
+						<ul class="submenu">
+							<!-- Sub Menu -->
+								<li class=""><a th:href="@{/consultations/visits/queue}"
+									th:if="${@userIdentity.renderLink(31)}">
+										<i class="menu-icon fa fa-caret-right"></i> Take Vital
+								</a></li>
+								<li class=""><a th:href="@{/consultations/visits/vitals}"
+									th:if="${@userIdentity.renderLink(32)}">
+										<i class="menu-icon fa fa-caret-right"></i> Vital Queue
+								</a></li>
+							<!-- Sub Menu -->
+						</ul></li>
+					<!-- End of Patient -->
+				</ul></li>
+			<!-- End Module -->
+		</th:block>
+		<!-- .//Vital Module -->
+
+		<!-- Consultation Module -->
+		<th:block th:if="${@userIdentity.renderLink(6)}">
+			<!-- Start Module -->
+			<li class=""><a href="#" class="dropdown-toggle"> <i
+					class="menu-icon fa fa-stethoscope"></i> <span class="menu-text">
+						Consultation </span> <b class="arrow fa fa-angle-down"></b>
+			</a>
+				<ul class="submenu">
+					<!-- Start of Patient -->
+					<li class=""><a href="#" class="dropdown-toggle"> <i
+							class="menu-icon fa fa-caret-right"></i> Consult <b
+							class="arrow fa fa-angle-down"></b>
+					</a> <b class="arrow"></b>
+						<ul class="submenu">
+							<!-- Sub Menu -->
+								<li class=""><a th:href="@{/consultations/visits}"
+									th:if="${@userIdentity.renderLink(33)}"> <i
+										class="menu-icon fa fa-caret-right"></i> Start Consulting
+								</a></li>
+								<li class=""><a th:href="@{/consultations/visits/doctor/searchdocqueue}"
+									th:if="${@userIdentity.renderLink(34)}"> <i
+										class="menu-icon fa fa-caret-right"></i> Doctor's Consulting
+								</a></li>
+							<!-- Sub Menu -->
+						</ul></li>
+					<!-- End of Patient -->
+				</ul></li>
+			<!-- End Module -->
+		</th:block>
+		<!-- .//Consultation Module -->
+		<!-- Parmacy Module -->
+		<th:block th:if="${@userIdentity.renderLink(35)}">
+			<!-- Start Module -->
+			<li class=""><a href="#" class="dropdown-toggle"> <i
+					class="menu-icon fa fa-medkit"></i> <span class="menu-text">
+						Pharmacy </span> <b class="arrow fa fa-angle-down"></b>
+			</a>
+				<ul class="submenu">
+					<!-- Start of Patient -->
+					<li class=""><a href="#" class="dropdown-toggle"> <i
+							class="menu-icon fa fa-caret-right"></i> Attend <b
+							class="arrow fa fa-angle-down"></b>
+					</a> <b class="arrow"></b>
+						<ul class="submenu">
+							<!-- Sub Menu -->
+								<li class=""><a th:href="@{/customers/patients/add}"
+									th:if="${@userIdentity.renderLink(36)}"> <i
+										class="menu-icon fa fa-caret-right"></i> Dispense
+								</a></li>
+								<li class=""><a th:href="@{/customers/patients}"
+									th:if="${@userIdentity.renderLink(37)}"> <i
+										class="menu-icon fa fa-caret-right"></i> Pharmacy Queue
+								</a></li>
+							<!-- Sub Menu -->
+						</ul></li>
+					<!-- End of Patient -->
+				</ul></li>
+			<!-- End Module -->
+		</th:block>
+		<!-- .//Pharmacy Module -->
+		
+		<!-- Laboratory Module-->
+		<th:block th:if="${@userIdentity.renderLink(38)}">
+			<!-- Start Module -->
+			<li class=""><a href="#" class="dropdown-toggle"> <i
+					class="menu-icon fa fa-wheelchair"></i> <span class="menu-text">
+						Laboratory </span> <b class="arrow fa fa-angle-down"></b>
+			</a>
+				<ul class="submenu">
+					<!-- Start of Patient -->
+					<li class=""><a href="#" class="dropdown-toggle"> <i
+							class="menu-icon fa fa-caret-right"></i> Attend <b
+							class="arrow fa fa-angle-down"></b>
+					</a> <b class="arrow"></b>
+						<ul class="submenu">
+							<!-- Sub Menu -->
+								<li class=""><a th:href="@{/system/labtest/labtestlist}"
+									th:if="${@userIdentity.renderLink(39)}"> <i
+										class="menu-icon fa fa-caret-right"></i> Lab Test
+								</a></li>
+								<li class=""><a th:href="@{/system/labtestcat/list}"
+									th:if="${@userIdentity.renderLink(39)}"> <i
+										class="menu-icon fa fa-caret-right"></i> Lab Test Category Ibrahim
+								</a></li>
+								<li class=""><a th:href="@{/customers/patients}"
+									th:if="${@userIdentity.renderLink(40)}"> <i
+										class="menu-icon fa fa-caret-right"></i> Laboratory Queue
+								</a></li>
+								<li class=""><a th:href="@{/consultations/labqueue/searchqueue}"
+									th:if="${@userIdentity.renderLink(40)}"> <i
+										class="menu-icon fa fa-caret-right"></i> MyQueue Ibrahim
+								</a></li>
+							<!-- Sub Menu -->
+						</ul></li>
+					<!-- End of Patient -->
+				</ul></li>
+			<!-- End Module -->
+		</th:block>
+		<!-- .//Laboratory Module -->
+		
+		<!-- Queue Manager -->
+		<th:block th:if="${@userIdentity.renderLink(41)}">
+		<li class=""><a th:href="@{/consultations/visits}"> <i
+				class="menu-icon fa fa-tachometer"></i> <span class="menu-text">Queue
+					Manager</span>
+		</a> <b class="arrow"></b></li>
+		</th:block>
+		<!-- .//Queue Manager -->
+		
+				<!-- Inventory -->
+		<th:block th:if="${@userIdentity.renderLink(14)}">
+		<!-- Start Module -->
+		<li class=""><a href="#" class="dropdown-toggle"> <i
+				class="menu-icon fa fa-file-o"></i> <span class="menu-text">
+					Store Management </span> <b class="arrow fa fa-angle-down"></b>
+		</a>
+			<ul class="submenu">
+				<!-- Patient -->
+				<!-- Sub Menu -->
+				<li class=""><a th:href="@{/inventory/vendor}"> <i
+						class="menu-icon fa fa-caret-right"></i> Vendors
+				</a></li>
+				<li class=""><a th:href="@{/inventory/stock_opening_balance}">
+						<i class="menu-icon fa fa-caret-right"></i>Stock Opening Balance
+				</a></li>
+				<li class=""><a th:href="@{/inventory/order_request}"> <i
+						class="menu-icon fa fa-caret-right"></i> Request
+				</a></li>
+				<li class=""><a th:href="@{/inventory/stock_in}"> <i
+						class="menu-icon fa fa-caret-right"></i> Stock In
+				</a></li>
+				<li class=""><a th:href="@{/inventory/stock}"> <i
+						class="menu-icon fa fa-caret-right"></i>Inventory
+				</a></li>
+				<li class=""><a href="#" class="dropdown-toggle"> <i
+						class="menu-icon fa fa-file-o"></i> <span class="menu-text">
+							Point Store Management</span> <b class="arrow fa fa-angle-down"></b>
+				</a>
+					<ul class="submenu">
+						<!-- Patient -->
+						<li class=""><a
+							th:href="@{/inventory/point/stock_opening_balance}"> <i
+								class="menu-icon fa fa-caret-right"></i>Opening Balances
+						</a></li>
+						<li class=""><a href="#" class="dropdown-toggle"> <i
+								class="menu-icon fa fa-caret-right"></i>Point Request <b
+								class="arrow fa fa-angle-down"></b>
+						</a> <b class="arrow"></b>
+							<ul class="submenu">
+								<!-- Sub Menu -->
+								<li class=""><a th:href="@{/inventory/order_request/new}">
+										<i class="menu-icon fa fa-caret-right"></i>Make Request
+								</a></li>
+								<li class=""><a th:href="@{/inventory/order_request/user}">
+										<i class="menu-icon fa fa-caret-right"></i>View Requests
+								</a></li>
+
+								<!-- Sub Menu -->
+							</ul></li>
+						<!-- Sub Menu -->
+
+						<li class=""><a th:href="@{/inventory/point/stock_in}"> <i
+								class="menu-icon fa fa-caret-right"></i>Point Stock In
+						</a></li>
+						<li class=""><a th:href="@{/inventory/point/stock}"> <i
+								class="menu-icon fa fa-caret-right"></i>Point Inventory
+						</a>
+						</li>
+						<!-- Sub Menu-->
+						<!-- order -->
+						<li class=""><a href="#" class="dropdown-toggle"> <i
+								class="menu-icon fa fa-caret-right"></i> Order <b
+								class="arrow fa fa-angle-down"></b>
+						</a> <b class="arrow"></b>
+							<ul class="submenu">
+								<li class=""><a th:href="@{/inventory/point/order/new}">
+										<i class="menu-icon fa fa-caret-right"></i>Make Order
+								</a></li>
+								<li class=""><a th:href="@{/inventory/point/order}"> <i
+										class="menu-icon fa fa-caret-right"></i>Order
+								</a></li>
+							</ul>
+						</li>
+						<!-- .//order -->
+
+					</ul></li>
+				<!-- Sub Menu -->
+				</ul>
+			</li>
+		<!-- End Module -->
+		</th:block>
+		<!-- ./Inventory -->
+		
+		<!-- HMO Setup Module -->
+		<th:block th:if="${@userIdentity.renderLink(14)}">
+			<!-- Module -->
+			<li class=""><a href="#" class="dropdown-toggle"> <i
+					class="menu-icon fa fa-ambulance"></i> <span class="menu-text">
+						HMO </span> <b class="arrow fa fa-angle-down"></b>
+			</a> <b class="arrow"></b>
+				<ul class="submenu">
+					<li class="">
+						<a href="#" class="dropdown-toggle"> <i
+							class="menu-icon fa fa-caret-right"></i> <span class="menu-text">
+								HMO Setup </span> <b class="arrow fa fa-angle-down"></b>
+						</a>
+						<ul class="submenu">
+							<li class=""><a th:href="@{/admin/insurances/hmos/add}"
+								th:if="${@userIdentity.renderLink(17)}"> <i
+									class="menu-icon fa fa-caret-right"></i> New HMO
+							</a> <b class="arrow"></b></li>
+							<li class=""><a th:href="@{/admin/insurances/hmos}"
+								th:if="${@userIdentity.renderLink(18)}"> <i
+									class="menu-icon fa fa-caret-right"></i> Manage HMO
+							</a> <b class="arrow"></b></li>
+							<li class=""><a th:href="@{/admin/insurances/hmos/hmoglobalservice}"
+								th:if="${@userIdentity.renderLink(17)}"> <i
+									class="menu-icon fa fa-caret-right"></i> Global HMO Services
+							</a> <b class="arrow"></b></li>
+							<li class=""><a href="#"
+								th:if="${@userIdentity.renderLink(17)}"> <i
+									class="menu-icon fa fa-caret-right"></i> HMO Package Services
+							</a> <b class="arrow"></b></li>
+							
+						</ul>
+					</li>
+				</ul></li>
+			<!-- /.system -->
+		</th:block>
+		<!-- .//HMO Setup Module -->
+		<!-- 
+		
+		Account
+					<li class=""><a href="#" class="dropdown-toggle"> <i
+							class="menu-icon fa fa-caret-right"></i> Account <b
+							class="arrow fa fa-angle-down"></b>
+					</a> <b class="arrow"></b>
+						<ul class="submenu">
+							Sub Menu
+								<li class=""><a th:href="@{/consultations/visits/configbill}"
+									th:if="${@userIdentity.renderLink(3)}"> <i
+										class="menu-icon fa fa-caret-right"></i> Billing Scheme
+								</a></li>
+							Sub Menu
+						</ul></li>
+					.//Account
+					 -->
+		<!-- Account Module-->
+		<th:block th:if="${@userIdentity.renderLink(38)}">
+			<!-- Start Module -->
+			<li class=""><a href="#" class="dropdown-toggle"> <i
+					class="menu-icon fa fa-usd"></i> <span class="menu-text">
+						Account </span> <b class="arrow fa fa-angle-down"></b>
+			</a>
+				<ul class="submenu">
+					<!-- Start of Patient -->
+					<li class="">
+						<a th:href="@{/consultations/visits/configbill}" 
+							th:if="${@userIdentity.renderLink(3)}" > 
+							<i
+							class="menu-icon fa fa-caret-right"></i> Billing <b
+							class=""></b>
+						</a> <b class="arrow"></b>
+					</li>
+					<!-- End of Patient -->
+				</ul></li>
+			<!-- End Module -->
+		</th:block>
+		<!-- .//Account Module -->
+	
+		<th:block th:if="${@userIdentity.renderLink(41)}">
+			<!-- Start Module -->
+			<li class="">
+                            <a href="#" class="dropdown-toggle"> <i
+					class="menu-icon fa fa-male"></i> <span class="menu-text">
+						Human Resources </span> <b class="arrow fa fa-angle-down"></b>
+                            </a>
+				<ul class="submenu">
+					<!-- Clocking -->
+					<li class="">
+						<a th:href="@{/clocking}" > <i
+								class="menu-icon fa fa-caret-right"></i> Clocking <b
+								class=""></b>
+						</a> 
+						<b class="arrow"></b>
+					</li>
+					<!-- .//Clocking -->
+					
+					<!-- Staff regisgtration -->
+					<li class="">
+						<a th:href="@{/staffreg/list}" > <i
+								class="menu-icon fa fa-caret-right"></i>Staff Registration <b
+								class=""></b>
+						</a> 
+						<b class="arrow"></b>
+					</li>
+					<!-- .//Staff regisgtration -->	
+						
+					
+					<!-- Department -->
+					<li class="">
+						<a th:href="@{/system/department/list}" > <i
+								class="menu-icon fa fa-caret-right"></i> Departments <b
+								class=""></b>
+						</a> 
+						<b class="arrow"></b>
+					</li>
+					<!-- .//Department -->
+					
+					<!-- clock mgmt -->
+					<li class="">
+						<!-- <a th:href="@{/system/clock_management/tab}" > -->
+						 <a th:href="@{/system/clock_management/index}"><i
+								class="menu-icon fa fa-caret-right"></i> Clock Management <b
+								class=""></b>
+						</a> 
+						<b class="arrow"></b>
+					</li>
+					<!-- .//clock mgmt -->
+					
+					<!-- Unit category -->
+					<li class="">
+						<!-- <a th:href="@{/system/clock_management/tab}" > -->
+						 <a th:href="@{/system/unit/category/list}"><i
+								class="menu-icon fa fa-caret-right"></i> Unit Category Setup <b
+								class=""></b>
+						</a> 
+						<b class="arrow"></b>
+					</li>
+					<!-- .//Unit category -->
+					
+				</ul></li>
+				
+			<!-- End Module -->
+		</th:block>
+		<!-- .//Clocking -->
+	
+		<!-- Hospital Setup Module -->
+		<th:block th:if="${@userIdentity.renderLink(14)}">
+			<!-- Module -->
+			<li class="">
+			<a href="#" class="dropdown-toggle"> <i
+					class="menu-icon fa fa-cog fa-spin"></i> <span class="menu-text">Global Admin 
+					</span> <b class="arrow fa fa-angle-down"></b>
+			</a>
+			 <b class="arrow"></b>
+				<ul class="submenu">
+				<!-- General Setup -->
+				<li class="">
+					<a href="#" class="dropdown-toggle"> 
+						<i class="menu-icon fa fa-caret-right"></i> <span class="menu-text">
+								General Setup </span> <b class="arrow fa fa-angle-down"></b>
+					</a>
+
+						 <ul class="submenu">
+							<li class=""><a th:href="@{/admin/medical/components/allergies}"
+								th:if="${@userIdentity.renderLink(15)}"> <i
+									class="menu-icon fa fa-caret-right"></i> Allergy Setup
+							</a> <b class="arrow"></b></li>
+							
+							<li class=""><a th:href="@{/admin/allergy/category/list}"
+								th:if="${@userIdentity.renderLink(15)}"> <i
+									class="menu-icon fa fa-caret-right"></i> Allergy Category Setup
+							</a> <b class="arrow"></b></li>
+							
+							<li class=""><a th:href="@{/disease/categories}"
+								th:if="${@userIdentity.renderLink(15)}"> <i
+									class="menu-icon fa fa-caret-right"></i> Disease Category  Setup
+							</a> <b class="arrow"></b></li>
+							
+							<li class=""><a th:href="@{/diseases}"
+								th:if="${@userIdentity.renderLink(15)}"> <i
+									class="menu-icon fa fa-caret-right"></i> Disease  Setup
+							</a> <b class="arrow"></b></li>
+							
+							<li class=""><a th:href="@{/examinationcategory/examlist}"
+								th:if="${@userIdentity.renderLink(15)}"> <i
+									class="menu-icon fa fa-caret-right"></i> Exam Category
+							</a> <b class="arrow"></b></li>
+							
+							<li class=""><a th:href="@{/examination/examlist}"
+								th:if="${@userIdentity.renderLink(15)}"> <i
+									class="menu-icon fa fa-caret-right"></i> Examination
+							</a> <b class="arrow"></b></li>
+							
+							<li class=""><a th:href="@{/globalexamresultsetup/list}"
+								th:if="${@userIdentity.renderLink(15)}"> <i
+									class="menu-icon fa fa-caret-right"></i> Set Global Exam Result
+							</a> <b class="arrow"></b></li>
+
+							<li class=""><a href="#" class="dropdown-toggle"
+								th:if="${@userIdentity.renderLink(16)}"> <i
+									class="menu-icon fa fa-caret-right"></i> Occupation Setup
+							</a> <b class="arrow"></b></li>
+							
+							<li class=""><a href="#" class="dropdown-toggle"
+								th:if="${@userIdentity.renderLink(16)}"> <i
+									class="menu-icon fa fa-caret-right"></i> Title Setup
+							</a> <b class="arrow"></b></li>
+							
+							<li class=""><a href="#" class="dropdown-toggle"
+								th:if="${@userIdentity.renderLink(16)}"> <i
+									class="menu-icon fa fa-caret-right"></i> Marital Status 
+							</a> <b class="arrow"></b></li>
+						</ul>
+				</li>
+				<!-- .//General Setup -->
+				<!-- Billing | Payment -->
+				<li class="">
+					<a href="#" class="dropdown-toggle"> <i
+							class="menu-icon fa fa-caret-right"></i> <span class="menu-text">
+								 Payment Scheme </span> <b class="arrow fa fa-angle-down"></b>
+					</a>
+						<ul class="submenu">
+							<li class="">
+								<a th:href="@{/system/paymentscheme}" 
+									th:if="${@userIdentity.renderLink(15)}"> <i
+										class="menu-icon fa fa-caret-right"></i> Scheme Setup
+								</a><b class="arrow"></b>
+							</li>
+						</ul>
+				</li>
+				<!-- .//Billing | Payment -->
+				<!-- Hospital -->
+				<li class=""><a href="#" class="dropdown-toggle"> <i
+							class="menu-icon fa fa-caret-right"></i> <span class="menu-text">
+								Hospital Setup </span> <b class="arrow fa fa-angle-down"></b>
+					</a>
+
+						<ul class="submenu">
+							<li class=""><a th:href="@{/admin/organisations}"
+								th:if="${@userIdentity.renderLink(22)}"> <i
+									class="menu-icon fa fa-caret-right"></i> Manage Hospital
+							</a> <b class="arrow"></b></li>
+
+							<li class=""><a href="#" class="dropdown-toggle"
+								th:if="${@userIdentity.renderLink(23)}"> <i
+									class="menu-icon fa fa-caret-right"></i> Hospital Setting
+							</a> <b class="arrow"></b></li>
+							
+							<li class=""><a th:href="@{/system/bcategory/index}" 
+								th:if="${@userIdentity.renderLink(45)}"> <i
+									class="menu-icon fa fa-caret-right"></i> Category Setup
+							</a> <b class="arrow"></b></li>
+							
+							<li class=""><a th:href="@{/system/bitem/index}"  
+								th:if="${@userIdentity.renderLink(46)}"> <i
+									class="menu-icon fa fa-caret-right"></i> Items Setup
+							</a> <b class="arrow"></b></li>
+							
+							<li class=""><a th:href="@{/system/measurement/unittoitem/}" 
+								th:if="${@userIdentity.renderLink(46)}"> <i
+									class="menu-icon fa fa-caret-right"></i> Unit Assigned
+							</a> <b class="arrow"></b></li>
+							
+							<li class=""><a th:href="@{/system/consultation/statuses}"
+									th:if="${@userIdentity.renderLink(42)}"> <i
+										class="menu-icon fa fa-caret-right"></i> Status Setup
+								</a> <b class="arrow"></b></li>
+								<li class=""><a th:href="@{/system/visits/statuses}"  th:if="${@userIdentity.renderLink(43)}"
+									class="dropdown-toggle"> <i
+										class="menu-icon fa fa-caret-right"></i> Vital Setup
+								</a></li>
+								<li class=""><a th:href="@{/system/setting/visitworkflows}"  th:if="${@userIdentity.renderLink(44)}"
+									class="dropdown-toggle"> <i
+										class="menu-icon fa fa-caret-right"></i> ProcessFlow Settings
+								</a></li>
+								<li class=""><a th:href="@{/system/paymentscheme}" class="dropdown-toggle"> <i
+											class="menu-icon fa fa-caret-right"></i> Scheme Setup
+									</a> 
+								</li>
+								<li class=""><a th:href="@{/admin/medical/components/ailments}"
+								th:if="${@userIdentity.renderLink(48)}"> <i
+									class="menu-icon fa fa-caret-right"></i> Ailments
+							</a> <b class="arrow"></b></li>
+							<li class="">
+								<a th:href="@{/admin/medical/components/ailments}"
+									th:if="${@userIdentity.renderLink(49)}"> <i
+										class="menu-icon fa fa-caret-right"></i> Diseases
+								</a> <b class="arrow"></b>
+							</li>
+						</ul>
+				</li>
+				<!-- .//Hospital Setup -->
+				<!-- HMO -->		
+				<li class="">
+					<a href="#" class="dropdown-toggle"> <i
+							class="menu-icon fa fa-caret-right"></i> <span class="menu-text">
+								HMO Setup </span> <b class="arrow fa fa-angle-down"></b>
+					</a>
+							<ul class="submenu">
+								<li class=""><a
+									th:href="@{/admin/insurances/hmos/packageservice/index}"
+									th:if="${@userIdentity.renderLink(19)}"> <i
+										class="menu-icon fa fa-caret-right"></i> HMO Service Setup
+								</a> <b class="arrow"></b>
+								</li>
+								<!-- <li class=""><a
+									th:href="@{/admin/insurances/hmos/services/subservice}"
+									th:if="${@userIdentity.renderLink(19)}"> <i
+										class="menu-icon fa fa-caret-right"></i> Manage Service
+								</a> <b class="arrow"></b>
+								</li> -->
+							</ul>
+				 </li>
+				 <!-- .//HMO -->
+				 <!-- Consultation Setup -->
+				<!-- <li class="">
+						<a href="#" class="dropdown-toggle"> <i
+							class="menu-icon fa fa-caret-right"></i> <span class="menu-text">
+								Consultation Setup </span> <b class="arrow fa fa-angle-down"></b>
+						</a>
+						<ul class="submenu">
+								<li class=""><a th:href="@{/system/consultation/statuses}"
+									th:if="${@userIdentity.renderLink(42)}"> <i
+										class="menu-icon fa fa-caret-right"></i> Status Setup
+								</a> <b class="arrow"></b></li>
+								<li class=""><a th:href="@{/system/visits/statuses}"  th:if="${@userIdentity.renderLink(43)}"
+									class="dropdown-toggle"> <i
+										class="menu-icon fa fa-caret-right"></i> Vital Setup
+								</a></li>
+								<li class=""><a th:href="@{/system/setting/visitworkflows}"  th:if="${@userIdentity.renderLink(44)}"
+									class="dropdown-toggle"> <i
+										class="menu-icon fa fa-caret-right"></i> ProcessFlow Settings
+								</a></li>
+								<li class=""><a th:href="@{/system/paymentscheme}" class="dropdown-toggle"> <i
+											class="menu-icon fa fa-caret-right"></i> Scheme Setup
+									</a> 
+								</li>
+						</ul>
+				 </li> -->
+				<!-- .//Consultation setup -->
+				<!-- User Module -->	 
+				<li class="">
+						<a href="#" class="dropdown-toggle"> <i
+							class="menu-icon fa fa-caret-right"></i> <span class="menu-text">
+								User Setup </span> <b class="arrow fa fa-angle-down"></b>
+						</a>
+	
+							<ul class="submenu">
+								<li class=""><a th:href="@{/system/umgt/users}"
+									th:if="${@userIdentity.renderLink(9)}"> <i
+										class="menu-icon fa fa-caret-right"></i>Users
+								</a> <b class="arrow"></b></li>
+								<li class=""><a th:href="@{/system/umgt/roles}"
+									th:if="${@userIdentity.renderLink(10)}"> <i
+										class="menu-icon fa fa-caret-right"></i> Roles
+								</a> <b class="arrow"></b></li>
+								<li class=""><a th:href="@{/system/umgt/permission}"
+									th:if="${@userIdentity.renderLink(11)}"> <i
+										class="menu-icon fa fa-caret-right"></i> Permissions
+								</a> <b class="arrow"></b></li>
+								<li class=""><a th:href="@{/system/umgt/audits}"
+									th:if="${@userIdentity.renderLink(12)}"> <i
+										class="menu-icon fa fa-caret-right"></i> Audit Trail
+								</a> <b class="arrow"></b></li>
+								<li class=""><a th:href="@{/system/umgt/loginSession}"
+									th:if="${@userIdentity.renderLink(13)}"> <i
+										class="menu-icon fa fa-caret-right"></i> Login Trail
+								</a> <b class="arrow"></b></li>
+						</ul>
+					</li>
+					<!-- .//User -->
+					</ul><!-- .//Submenu -->
+			</li>
+		</th:block>
+		<!-- .//Hospital Setup Module -->
+		
+		<!-- Global Admin Module -->
+		<th:block th:if="${@userIdentity.renderLink(20)}">
+			<!-- Module -->
+			<!-- <li class="">
+			<a href="#" class="dropdown-toggle"> <i
+					class="menu-icon fa fa-cog fa-spin"></i> <span class="menu-text">Global
+						Admin </span> <b class="arrow fa fa-angle-down"></b>
+			</a>
+			<ul class="submenu">
+			<li class="">
+			<a href="#" class="dropdown-toggle"> <i
+							class="menu-icon fa fa-caret-right"></i> Company Setup <b
+							class="arrow fa fa-angle-down"></b>
+			</a> <b class="arrow"></b> Sub Menu
+						<ul class="submenu">
+								<li class=""><a th:href="@{/admin/organisations/add}"
+									th:if="${@userIdentity.renderLink(21)}"> <i
+										class="menu-icon fa fa-caret-right"></i> New Hospital
+								</a></li>
+						</ul> /.Sub Menu
+			</li>
+			
+			
+			<li class="">
+			<a href="#" class="dropdown-toggle"> <i
+							class="menu-icon fa fa-caret-right"></i> Global Setup <b
+							class="arrow fa fa-angle-down"></b>
+			</a> <b class="arrow"></b> Sub Menu
+						<ul class="submenu">
+								<li class=""><a th:href="@{/admin/medical/components/allergies}"
+									th:if="${@userIdentity.renderLink(47)}"> <i
+										class="menu-icon fa fa-caret-right"></i> Allergies
+								</a></li>
+								<li class=""><a th:href="@{/admin/medical/components/ailments}"
+								th:if="${@userIdentity.renderLink(48)}"> <i
+									class="menu-icon fa fa-caret-right"></i> Ailments
+							</a> <b class="arrow"></b></li>
+							<li class="">
+								<a th:href="@{/admin/medical/components/ailments}"
+									th:if="${@userIdentity.renderLink(49)}"> <i
+										class="menu-icon fa fa-caret-right"></i> Diseases
+								</a> <b class="arrow"></b>
+							</li>
+						</ul> /.Sub Menu
+			</li>
+			</ul>
+			</li> -->
+			<!-- /.Module -->
+		</th:block>
+		<!-- .//Global Admin Module -->
+
+		<!-- Report Module -->
+		<th:block th:if="${@userIdentity.renderLink(24)}">
+			<li class=""><a th:href="@{/consultations}"
+				th:if="${@userIdentity.renderLink(24)}"> <i
+					class="menu-icon fa fa-folder-open-o"></i> <span class="menu-text">Reports
+				</span>
+			</a> <b class="arrow"></b></li>
+		</th:block>
+		<!-- .//Report Module -->
+	</ul>
+	<!-- /.nav-list -->
+
+	<!-- #section:basics/sidebar.layout.minimize -->
+	<div class="sidebar-toggle sidebar-collapse" id="sidebar-collapse">
+		<i class="ace-icon fa fa-angle-double-left"
+			data-icon1="ace-icon fa fa-angle-double-left"
+			data-icon2="ace-icon fa fa-angle-double-right"></i>
+	</div>
+
+	<!-- /section:basics/sidebar.layout.minimize -->
+	<script type="text/javascript">
+		try {
+			ace.settings.check('sidebar', 'collapsed')
+		} catch (e) {
+		}
+	</script>
+</div>
+<!-- // Sidebar Menu END -->

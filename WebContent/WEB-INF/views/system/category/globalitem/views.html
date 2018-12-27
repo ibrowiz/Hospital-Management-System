@@ -1,0 +1,48 @@
+<div class="page-header">
+	<h1>
+		View <small> <i class="ace-icon fa fa-angle-double-right"></i>
+			View Category Item
+		</small>
+	</h1>
+</div>
+
+<div class="row">
+	<div class="col-xs-12">
+		<!-- Button for view -->
+		<a class="btn btn-xs btn-info" th:href="@{/system}"><i
+			class="fa fa-home"></i> System Dashboard
+		</a> 
+		
+		<a
+			class="btn btn-xs btn-primary"
+			th:href="@{/system/unitofmeasurement}"><i
+			class="fa fa-list"></i> All Category Items
+		</a>
+		<a
+			class="btn btn-xs btn-warning"
+			th:href="@{/system/categoryitem/edit/{id} (id=${item.itemId})}"><i
+			class="fa fa-edit"></i> Edit Unit
+		</a> 
+		<a class="btn btn-xs btn-danger"
+			th:href="@{/system/categoryitem/delete/{id} (id=${item.itemId})}"><i
+			class="fa fa-trash-o"></i> Delete Unit
+		</a>
+	</div>
+</div>
+
+<div class="hr hr-18 dotted hr-double"></div>
+<div class="row">
+	<div class="col-xs-12">
+		<!-- View contents here -->
+		<dl class="dl-horizontal">
+			<dt>Item Name:</dt>
+			<dd th:text="${item.itemName}"></dd>
+			<dt>Item Description:</dt>
+			<dd th:text="${item.itemDesc}"></dd>
+			<dt>Category Item:</dt>
+			<dd th:text="${item.category.categoryName}"></dd>
+			
+			
+		</dl>
+	</div>
+</div>

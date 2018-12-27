@@ -1,0 +1,160 @@
+<div class="page-header">
+	<h1>
+		Clocking<small> <i
+			class="ace-icon fa fa-angle-double-right"></i> User Clocking
+		</small>
+	</h1>
+</div>
+
+<div class="row">
+	<div class="col-xs-12">
+		<!-- Button for view -->
+		<a class="btn btn-xs btn-info" th:href="@{/system}"><i
+			class="fa fa-home"></i> System Dashboard</a>
+	</div>
+</div>
+
+
+<div class="hr hr-18 dotted hr-double"></div>
+
+<div class="row">
+	<div class="col-xs-12">
+		<!-- View contents here -->
+		<!-- User Profile -->		
+			<div class="row">
+						<div class="col-md-12">
+							<form role="form" class="form-horizontal" th:object="${clockinForm}" name="uForm" id="uForm"
+								method="POST" th:action="@{/clocking/save}">
+								<!-- Elements -->
+
+								<div class="row">
+								
+								<!-- Column -->
+									<div class="col-md-6">
+									
+										<!-- Group -->
+										<div class="form-group margin-none innerB">
+											<h4 class="header blue">&nbsp;&nbsp;Expected ClockOut Time</h4>
+											<div class="col-md-9">
+												<div class="input-group">
+													<!-- <select th:field="*{pUser}" name="${pUser}" class="form-control" id="drop" >
+														<option value="0">Select User</option>
+														<option th:each="user : ${users}" th:value="${user.userId}" th:text="${user.username}" ></option>
+													</select> -->
+													<span class="input-icon">
+											<input type="text" th:field="*{hours}" maxlength="2" placeholder="Hours" id="form-field-icon-1" />
+										</span>&nbsp;&nbsp;
+										
+										<span class="input-icon input-icon-right">
+											<input type="text" th:field="*{minutes}" maxlength="2" placeholder="Minutes" id="form-field-icon-2" />
+										</span>
+													
+												</div>
+												
+											</div>
+										</div>
+										<!-- // Group END -->
+										
+									</div>
+								
+								
+								<!-- // Column END -->
+									<!-- Column -->
+									<div class="col-md-6">
+
+										<!-- Group -->
+									   <div class="form-group margin-none innerB">
+											<h4 class="header blue">Units</h4>
+											<!-- Table -->
+											<table id="dTable"
+												class="table table-striped table-bordered table-hover">
+												<!-- Table heading -->
+												<thead>
+													<tr>
+														<th>Unit Name</th>
+														<th>status</th>
+													</tr>
+												</thead>
+												<!-- // Table heading END -->
+												<!-- Table body -->
+												<tbody>
+													<tr th:each="unit : ${unitClockin}">
+														<td th:text="${unit.unitName}"></td>
+														<td>
+															<input type="checkbox" name="unitCheckboxVals" th:checked="${unit.checkStatus}" 
+																id="chckbox" class="form-control" th:value="${unit.unitId}" />
+																<span class="text-danger" th:if="${#fields.hasErrors('unitCheckboxVals')}"
+																			th:errors="*{unitCheckboxVals}">
+															</span>
+														</td>
+													</tr>
+												</tbody>
+												<!-- // Table body END -->
+											</table>
+											<!-- //Table -->
+											<!-- </div> -->
+										</div> 
+										<!-- // Group END -->
+
+									</div>
+									<!-- // Column END -->
+
+									<!-- Column -->
+									<div class="col-md-6">
+									
+										<!-- Group -->
+										<div class="form-group margin-none innerB">
+											<!-- <h4 class="header blue">User List</h4> -->
+											<div class="col-md-9">
+											</div>
+										</div>
+										<!-- // Group END -->
+										
+									</div>
+									
+
+								</div>
+								<!-- // Row END -->
+								<div id="result"></div>
+								<!-- Form actions -->
+								<div class="form-actions center">
+									<button type="submit" name="saveButton" class="btn btn-primary" value="clockin" id="buttonId" >
+										<i class="fa fa-fw fa-check-square-o"></i> CLOCK IN
+									</button>
+									<a th:href="@{/user/profile}" class="btn btn-default">
+										<i class="fa fa-fw fa-times"></i> Cancel
+									</a>
+									<button type="submit" name="saveButton" class="btn btn-primary" value="clockout" id="buttonId" >
+										<i class="fa fa-fw fa-check-square-o"></i> CLOCK OUT
+									</button>
+								</div>
+								<!-- // Form actions END -->
+								<!-- /.Elements -->
+							</form>
+						</div>
+					</div>
+				
+			
+		
+		<!-- /.User Profile -->
+	</div>
+</div>
+
+<script type="text/javascript">
+   // <![CDATA[ 
+$("#drop").change(function () {
+	document.forms["uForm"].submit();
+});
+
+  function saveAlert() {
+     var confirmAction = confirm('Are you sure you want to save your last action?.');
+     alert(confirmAction);
+     if(confirmAction == true){
+      return true;
+     }else{
+      return false;
+     }
+ }
+ 
+  // ]]>
+</script>
